@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { SITE, hasValue } from '../../lib/site';
+import { Icon } from 'astro-icon/components';
+
+const acteLegislative = [
+  { title: 'Legea cu privire la energia electrică', tip: 'Lege primară', href: 'https://www.legis.md/cautare/getResults?doc_id=110368&lang=ro' },
+  { title: 'Legea cu privire la energetică', tip: 'Lege primară', href: 'https://www.legis.md/cautare/getResults?doc_id=125228&lang=ro' },
+  { title: 'Legea privind promovarea utilizării energiei din surse regenerabile', tip: 'Lege primară', href: 'https://www.legis.md/cautare/getResults?doc_id=106068&lang=ro' },
+];
+
+const acteSecundare = [
+  { title: 'Regulile pieței energiei electrice', tip: 'Act normativ secundar', href: 'https://www.legis.md/cautare/getResults?doc_id=128726&lang=ro' },
+  { title: 'Regulamentul privind procedura de schimbare a furnizorului de energie electrică', tip: 'Act normativ secundar', href: 'https://www.legis.md/cautare/getResults?doc_id=121879&lang=ro' },
+  { title: 'Codul rețelelor electrice', tip: 'Act normativ secundar', href: 'https://www.legis.md/cautare/getResults?doc_id=120014&lang=ro' },
+  { title: 'Regulamentul privind furnizarea energiei electrice', tip: 'Act normativ secundar', href: 'https://www.legis.md/cautare/getResults?doc_id=141295&lang=ro' },
+];
+---
+<BaseLayout
+  title="Licență ANRE, EIC și transparența Eco Solar Park"
+  description="Verifică licența ANRE, codul EIC și datele oficiale ale Eco Solar Park SRL ca furnizor de energie electrică."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[
+      { label: 'Acasă', href: '/' },
+      { label: 'Despre noi', href: '/despre-noi' },
+      { label: 'Licența ANRE și transparența' },
+    ]} />
+    <h1 class="mb-6">Licența ANRE și transparența Eco Solar Park</h1>
+
+    <div class="prose-article">
+      <p>
+        Transparența privind licențierea și reperele reale ale companiei este, pentru noi, un principiu de bază,
+        nu o formalitate. Mai jos găsești datele oficiale ale Eco Solar Park SRL ca furnizor de energie electrică
+        licențiat de ANRE.
+      </p>
+
+      <h2>Date de licențiere</h2>
+      <ul>
+        <li><strong>Denumire legală:</strong> {SITE.legalName}</li>
+        {hasValue(SITE.idno) && <li><strong>IDNO:</strong> {SITE.idno}</li>}
+        {hasValue(SITE.anreLicenseNumber) && <li><strong>Număr licență ANRE:</strong> {SITE.anreLicenseNumber}</li>}
+        {hasValue(SITE.anreLicenseDate) && <li><strong>Data eliberării licenței:</strong> {SITE.anreLicenseDate}</li>}
+        {hasValue(SITE.eicCode) && <li><strong>Cod EIC:</strong> {SITE.eicCode}</li>}
+        {hasValue(SITE.legalAddress) && <li><strong>Sediu juridic:</strong> {SITE.legalAddress}</li>}
+      </ul>
+      <p>
+        Poți verifica independent aceste date în registrul public al furnizorilor licențiați, disponibil pe
+        site-ul oficial <a href="https://anre.md" rel="nofollow">anre.md</a>.
+      </p>
+
+      {hasValue(SITE.ownGenerationDescription) && (
+        <>
+          <h2>Capacități de producție</h2>
+          <p>{SITE.ownGenerationDescription}</p>
+        </>
+      )}
+
+      <h2>Activitatea de agregare (PRE)</h2>
+      <p>
+        Eco Solar Park administrează o Parte Responsabilă cu Echilibrarea (PRE), o structură de agregare pentru
+        producători din surse regenerabile, cu activități reglementate, supravegheate de operatorul de transport și
+        de sistem (schimb de date, transmiterea notificărilor orare pe piața angro, calculul dezechilibrelor și
+        facturarea către membri). Detalii complete pe pagina dedicată
+        {' '}<a href="/servicii-echilibrare-pre">Servicii de echilibrare (PRE)</a>.
+        {hasValue(SITE.wholesaleMarketNote) && <> {SITE.wholesaleMarketNote}</>}
+      </p>
+
+      <h2>Cadru legal</h2>
+      <p>
+        Activitatea Eco Solar Park se desfășoară în conformitate cu legislația din domeniul energetic al Republicii
+        Moldova. Mai jos, principalele acte normative relevante, disponibile integral pe platforma oficială
+        {' '}<a href="https://www.legis.md" rel="nofollow">legis.md</a>:
+      </p>
+      <p class="font-heading font-semibold text-ink-900 mb-2">Acte legislative primare</p>
+      <ul>
+        {acteLegislative.map((act) => (
+          <li><a href={act.href} rel="nofollow" target="_blank">{act.title}</a> ({act.tip})</li>
+        ))}
+      </ul>
+      <p class="font-heading font-semibold text-ink-900 mb-2">Acte normative secundare</p>
+      <ul>
+        {acteSecundare.map((act) => (
+          <li><a href={act.href} rel="nofollow" target="_blank">{act.title}</a> ({act.tip})</li>
+        ))}
+      </ul>
+      <p class="text-sm text-ink-400">
+        Pentru consultări juridice specifice sau interpretări detaliate ale reglementărilor, recomandăm
+        contactarea unor consultanți juridici specializați în dreptul energetic.
+      </p>
+
+      <h2>Contact pentru verificări</h2>
+      <p>
+        Pentru orice întrebare privind licențierea sau activele companiei, ne poți scrie direct la
+        {' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+
+    <div class="mt-12">
+      <CtaBanner compact />
+    </div>
+  </div>
+</BaseLayout>

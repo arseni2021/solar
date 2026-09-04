@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Calculator from '../components/Calculator.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+---
+<BaseLayout
+  title="Calculator economie energie electrică pentru afaceri"
+  description="Trimite-ne consumul lunar și tariful tău actual, primești o ofertă de preț exactă pentru energia electrică a companiei."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Calculator economie' }]} />
+    <h1 class="mb-4">Vezi cât ai plăti cu Ecosolar</h1>
+    <p class="text-lg text-ink-700 mb-10">
+      Introdu consumul lunar aproximativ al companiei și tariful actual plătit. Nu îți dăm o cifră inventată, îți
+      trimitem o ofertă de preț reală, calculată pe tariful nostru curent.
+    </p>
+
+    <Calculator />
+
+    <div class="mt-12">
+      <CtaBanner />
+    </div>
+  </div>
+</BaseLayout>

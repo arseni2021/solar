@@ -1,0 +1,63 @@
+---
+import Button from './Button.astro';
+import { UI, localizedHref, type Lang } from '../lib/i18n';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  compact?: boolean;
+  lang?: Lang;
+  href?: string;
+  buttonLabel?: string;
+}
+
+const VARIANTS: Record<Lang, { title: string; subtitle: string }[]> = {
+  ro: [
+    {
+      title: 'Vrei o ofertă personalizată pentru compania ta?',
+      subtitle: 'Completează formularul în 2 minute și primești un răspuns în 24 de ore.',
+    },
+    {
+      title: 'Gata să treci la Ecosolar?',
+      subtitle: 'Trimite-ne consumul aproximativ al companiei și primești un preț clar în 24 de ore.',
+    },
+    {
+      title: 'Hai să calculăm oferta ta.',
+      subtitle: 'Fără obligații, fără presiune, doar o cifră clară pentru compania ta.',
+    },
+  ],
+  ru: [
+    {
+      title: 'Хочешь персональное предложение для своей компании?',
+      subtitle: 'Заполни форму за 2 минуты и получи ответ в течение 24 часов.',
+    },
+    {
+      title: 'Готов перейти на Ecosolar?',
+      subtitle: 'Пришли примерное потребление компании и получи чёткую цену за 24 часа.',
+    },
+    {
+      title: 'Давай посчитаем твоё предложение.',
+      subtitle: 'Без обязательств и давления, просто ясная цифра для твоей компании.',
+    },
+  ],
+};
+
+function pathHash(path: string): number {
+  let h = 0;
+  for (let i = 0; i < path.length; i++) h = (h * 31 + path.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+const { title, subtitle, compact = false, lang = 'ro', href, buttonLabel } = Astro.props;
+const variants = VARIANTS[lang];
+const picked = variants[pathHash(Astro.url.pathname) % variants.length];
+const finalTitle = title ?? picked.title;
+const finalSubtitle = subtitle ?? picked.subtitle;
+const finalHref = href ?? `${localizedHref(lang, '/oferta')}#form`;
+const finalButtonLabel = buttonLabel ?? UI[lang].requestOffer;
+---
+<section class={`bg-ink-900 rounded-2xl text-center ${compact ? 'py-10 px-6' : 'py-16 px-6'}`}>
+  <h2 class="text-ink-50 mb-3">{finalTitle}</h2>
+  {finalSubtitle && <p class="text-ink-100 max-w-xl mx-auto mb-8">{finalSubtitle}</p>}
+  <Button href={finalHref} variant="primary">{finalButtonLabel}</Button>
+</section>

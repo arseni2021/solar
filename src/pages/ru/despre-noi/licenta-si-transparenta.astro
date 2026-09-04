@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CtaBanner from '../../../components/CtaBanner.astro';
+import { SITE, hasValue } from '../../../lib/site';
+
+const acteLegislative = [
+  { title: 'Закон об электроэнергии', tip: 'Первичный закон', href: 'https://www.legis.md/cautare/getResults?doc_id=110368&lang=ro' },
+  { title: 'Закон об энергетике', tip: 'Первичный закон', href: 'https://www.legis.md/cautare/getResults?doc_id=125228&lang=ro' },
+  { title: 'Закон о продвижении использования энергии из возобновляемых источников', tip: 'Первичный закон', href: 'https://www.legis.md/cautare/getResults?doc_id=106068&lang=ro' },
+];
+
+const acteSecundare = [
+  { title: 'Правила рынка электроэнергии', tip: 'Вторичный нормативный акт', href: 'https://www.legis.md/cautare/getResults?doc_id=128726&lang=ro' },
+  { title: 'Регламент о процедуре смены поставщика электроэнергии', tip: 'Вторичный нормативный акт', href: 'https://www.legis.md/cautare/getResults?doc_id=121879&lang=ro' },
+  { title: 'Кодекс электрических сетей', tip: 'Вторичный нормативный акт', href: 'https://www.legis.md/cautare/getResults?doc_id=120014&lang=ro' },
+  { title: 'Регламент о поставке электроэнергии', tip: 'Вторичный нормативный акт', href: 'https://www.legis.md/cautare/getResults?doc_id=141295&lang=ro' },
+];
+---
+<BaseLayout
+  lang="ru"
+  title="Лицензия ANRE, EIC и прозрачность Eco Solar Park"
+  description="Проверь лицензию ANRE, код EIC и официальные данные Eco Solar Park SRL как поставщика электроэнергии."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[
+      { label: 'Главная', href: '/ru' },
+      { label: 'О компании', href: '/ru/despre-noi' },
+      { label: 'Лицензия ANRE и прозрачность' },
+    ]} />
+    <h1 class="mb-6">Лицензия ANRE и прозрачность Eco Solar Park</h1>
+
+    <div class="prose-article">
+      <p>
+        Прозрачность в отношении лицензирования и реальных показателей компании для нас базовый принцип, а не
+        формальность. Ниже официальные данные Eco Solar Park SRL как поставщика электроэнергии, лицензированного
+        ANRE.
+      </p>
+
+      <h2>Данные лицензирования</h2>
+      <ul>
+        <li><strong>Юридическое наименование:</strong> {SITE.legalName}</li>
+        {hasValue(SITE.idno) && <li><strong>IDNO:</strong> {SITE.idno}</li>}
+        {hasValue(SITE.anreLicenseNumber) && <li><strong>Номер лицензии ANRE:</strong> {SITE.anreLicenseNumber}</li>}
+        {hasValue(SITE.anreLicenseDate) && <li><strong>Дата выдачи лицензии:</strong> {SITE.anreLicenseDate}</li>}
+        {hasValue(SITE.eicCode) && <li><strong>Код EIC:</strong> {SITE.eicCode}</li>}
+        {hasValue(SITE.legalAddress) && <li><strong>Юридический адрес:</strong> {SITE.legalAddress}</li>}
+      </ul>
+      <p>
+        Эти данные можно самостоятельно проверить в публичном реестре лицензированных поставщиков на официальном
+        сайте <a href="https://anre.md" rel="nofollow">anre.md</a>.
+      </p>
+
+      {hasValue(SITE.ownGenerationDescription) && (
+        <>
+          <h2>Производственные мощности</h2>
+          <p>{SITE.ownGenerationDescription}</p>
+        </>
+      )}
+
+      <h2>Деятельность по агрегации (PRE)</h2>
+      <p>
+        Eco Solar Park управляет Ответственной стороной по балансированию (PRE), структурой агрегации для
+        производителей энергии из возобновляемых источников, с регулируемой деятельностью, контролируемой
+        оператором передачи и системы (обмен данными, передача почасовых уведомлений на оптовом рынке, расчёт
+        дисбалансов и выставление счетов участникам). Полные подробности на отдельной странице
+        {' '}<a href="/ru/servicii-echilibrare-pre">Услуги балансирования (PRE)</a>.
+        {hasValue(SITE.wholesaleMarketNote) && <> {SITE.wholesaleMarketNote}</>}
+      </p>
+
+      <h2>Правовая база</h2>
+      <p>
+        Деятельность Eco Solar Park осуществляется в соответствии с законодательством в области энергетики
+        Республики Молдова. Ниже перечислены основные релевантные нормативные акты, доступные полностью на официальной
+        платформе <a href="https://www.legis.md" rel="nofollow">legis.md</a>:
+      </p>
+      <p class="font-heading font-semibold text-ink-900 mb-2">Первичные законодательные акты</p>
+      <ul>
+        {acteLegislative.map((act) => (
+          <li><a href={act.href} rel="nofollow" target="_blank">{act.title}</a> ({act.tip})</li>
+        ))}
+      </ul>
+      <p class="font-heading font-semibold text-ink-900 mb-2">Вторичные нормативные акты</p>
+      <ul>
+        {acteSecundare.map((act) => (
+          <li><a href={act.href} rel="nofollow" target="_blank">{act.title}</a> ({act.tip})</li>
+        ))}
+      </ul>
+      <p class="text-sm text-ink-400">
+        Для специфических юридических консультаций или подробного толкования регламентов рекомендуем обратиться к
+        юристам, специализирующимся на энергетическом праве.
+      </p>
+
+      <h2>Контакты для проверок</h2>
+      <p>
+        По любым вопросам о лицензировании или активах компании можешь написать напрямую на
+        {' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+
+    <div class="mt-12">
+      <CtaBanner lang="ru" compact />
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CtaBanner from '../../../components/CtaBanner.astro';
+import { Icon } from 'astro-icon/components';
+
+const caracteristici = [
+  {
+    icon: 'lucide:leaf',
+    title: 'Преимущественно возобновляемое происхождение',
+    text: 'Поставляемая энергия в основном происходит из возобновляемых источников (собственных и агрегированных), с возможностью выпуска сертификатов происхождения для клиентов, заинтересованных в ESG-отчётности.',
+    href: '/ru/pentru-afaceri/energie-verde-pentru-companii',
+  },
+  {
+    icon: 'lucide:badge-percent',
+    title: 'Конкурентные и прозрачные цены',
+    text: 'Понятные и конкурентные тарифы на поставляемую электроэнергию, без скрытых формул и неясных условий в договоре.',
+  },
+  {
+    icon: 'lucide:settings-2',
+    title: 'Персонализированные решения',
+    text: 'Гибкие договоры для промышленных потребителей, с возможностью интеграции систем самопотребления, локального накопления и оптимизации потребления.',
+    href: '/ru/pentru-afaceri/solutii-industriale',
+  },
+  {
+    icon: 'lucide:smartphone',
+    title: 'Цифровая платформа для клиентов',
+    text: 'Отслеживание потребления, электронное выставление счетов, персональный прогноз, анализ энергоэффективности и онлайн техподдержка.',
+  },
+];
+---
+<BaseLayout
+  lang="ru"
+  title="Поставка электроэнергии для компаний | Ecosolar"
+  description="Поставка электроэнергии из возобновляемых источников для МСБ и промышленных потребителей Молдовы, прозрачные цены, персонализированные решения."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/ru' }, { label: 'Для бизнеса' }]} />
+    <h1 class="mb-4">Поставка электроэнергии для твоего бизнеса</h1>
+    <p class="text-lg text-ink-700 max-w-2xl mb-10">
+      Стратегическое направление компании Eco Solar Park, ориентированное на интеграцию возобновляемой энергии
+      в конечное потребление и на создание устойчивой модели поставки электроэнергии коммерческим и промышленным
+      клиентам.
+    </p>
+
+    <div class="prose-article mb-10">
+      <h2>Для кого</h2>
+      <ul>
+        <li><strong>Малый и средний бизнес</strong>, заинтересованный в зелёных источниках энергии.</li>
+        <li><strong>Промышленные потребители</strong> с предсказуемым и стабильным профилем потребления.</li>
+      </ul>
+
+      <h2>Модель снабжения</h2>
+      <p>
+        Поставка электроэнергии опирается прежде всего на собственное и агрегированное производство, дополненное
+        закупками на оптовом рынке.
+      </p>
+    </div>
+
+    <h2 class="mb-5">Ключевые особенности услуги</h2>
+    <div class="grid sm:grid-cols-2 gap-6 mb-14">
+      {caracteristici.map((c) => (
+        <div class="bg-white rounded-2xl border border-ink-100 p-6">
+          <span class="inline-flex items-center justify-center rounded-full bg-brand-100 p-3 mb-4">
+            <Icon name={c.icon} class="w-6 h-6 text-brand-500" />
+          </span>
+          <h3 class="font-heading font-semibold text-lg text-ink-900 mb-2">{c.title}</h3>
+          <p class="text-ink-700 mb-3">{c.text}</p>
+          {c.href && (
+            <a href={c.href} class="inline-flex items-center gap-1 text-brand-600 font-semibold text-sm hover:gap-2 transition-all">
+              Подробнее <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-ink-50 rounded-2xl p-8 mb-14">
+      <h2 class="mb-3">Хочешь узнать, сколько ты заплатишь?</h2>
+      <p class="text-ink-700 mb-4">
+        Используй калькулятор экономии для ориентировочной оценки, затем запроси персональное предложение для
+        точных цифр.
+      </p>
+      <a href="/ru/calculator-economie" class="text-brand-600 font-semibold hover:underline">
+        Открыть калькулятор экономии →
+      </a>
+    </div>
+
+    <CtaBanner lang="ru" />
+  </div>
+</BaseLayout>

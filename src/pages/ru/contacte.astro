@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RequestForm from '../../components/RequestForm.astro';
+import { Icon } from 'astro-icon/components';
+import { SITE, SITE_TEXT, hasValue } from '../../lib/site';
+
+const text = SITE_TEXT.ru;
+---
+<BaseLayout
+  lang="ru"
+  title="Контакты | Ecosolar, поставщик электроэнергии"
+  description="Контактные данные Eco Solar Park SRL. Напиши нам или запроси ценовое предложение по электроэнергии для своего бизнеса."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/ru' }, { label: 'Контакты' }]} />
+    <h1 class="mb-10">Связаться с Ecosolar</h1>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div>
+        <ul class="space-y-4 text-ink-700 mb-8">
+          <li class="flex items-center gap-3"><Icon name="lucide:building-2" class="w-5 h-5 text-brand-500" /> {SITE.legalName}</li>
+          {hasValue(SITE.phone) && (
+            <li class="flex items-center gap-3"><Icon name="lucide:phone" class="w-5 h-5 text-brand-500" /> {SITE.phone}</li>
+          )}
+          <li class="flex items-center gap-3"><Icon name="lucide:mail" class="w-5 h-5 text-brand-500" /> <a href={`mailto:${SITE.email}`} class="hover:text-brand-600">{SITE.email}</a></li>
+          {hasValue(SITE.legalAddress) && (
+            <li class="flex items-center gap-3"><Icon name="lucide:map-pin" class="w-5 h-5 text-brand-500" /> {SITE.legalAddress}</li>
+          )}
+          <li class="flex items-center gap-3"><Icon name="lucide:clock" class="w-5 h-5 text-brand-500" /> {text.workHours}</li>
+          <li class="flex items-center gap-3"><Icon name="lucide:zap" class="w-5 h-5 text-brand-500" /> {text.responseTime}</li>
+        </ul>
+        {hasValue(SITE.legalAddress) && (
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.legalAddress)}`}
+            rel="nofollow noopener"
+            target="_blank"
+            class="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:underline mb-8"
+          >
+            <Icon name="lucide:map" class="w-4 h-4" /> Открыть в Google Maps
+          </a>
+        )}
+        {(hasValue(SITE.facebookUrl) || hasValue(SITE.linkedinUrl) || hasValue(SITE.instagramUrl)) && (
+          <div class="flex items-center gap-4">
+            {hasValue(SITE.facebookUrl) && (
+              <a href={SITE.facebookUrl} rel="nofollow noopener" target="_blank" aria-label="Facebook" class="text-ink-400 hover:text-brand-600">
+                <Icon name="lucide:facebook" class="w-5 h-5" />
+              </a>
+            )}
+            {hasValue(SITE.linkedinUrl) && (
+              <a href={SITE.linkedinUrl} rel="nofollow noopener" target="_blank" aria-label="LinkedIn" class="text-ink-400 hover:text-brand-600">
+                <Icon name="lucide:linkedin" class="w-5 h-5" />
+              </a>
+            )}
+            {hasValue(SITE.instagramUrl) && (
+              <a href={SITE.instagramUrl} rel="nofollow noopener" target="_blank" aria-label="Instagram" class="text-ink-400 hover:text-brand-600">
+                <Icon name="lucide:instagram" class="w-5 h-5" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      <div>
+        <RequestForm lang="ru" />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

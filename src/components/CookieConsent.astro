@@ -1,0 +1,234 @@
+---
+import { SITE } from '../lib/site';
+import { localizedHref, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'ro' } = Astro.props;
+
+const copy = {
+  ro: {
+    message: 'Folosim cookie-uri pentru funcționarea site-ului și, cu acordul tău, pentru analiză de trafic și publicitate.',
+    policyLink: 'Politica de cookie-uri',
+    acceptAll: 'Acceptă toate',
+    rejectAll: 'Respinge opționale',
+    customize: 'Personalizează',
+    save: 'Salvează preferințele',
+    back: 'Înapoi',
+    necessaryTitle: 'Strict necesare',
+    necessaryDesc: 'Necesare pentru funcționarea de bază a site-ului. Nu pot fi dezactivate.',
+    analyticsTitle: 'Analitice',
+    analyticsDesc: 'Ne ajută să înțelegem cum este folosit site-ul (Google Analytics, Microsoft Clarity).',
+    advertisingTitle: 'Publicitare',
+    advertisingDesc: 'Măsoară eficiența campaniilor publicitare (Bing/Microsoft Advertising).',
+  },
+  ru: {
+    message: 'Мы используем cookie для работы сайта и, с твоего согласия, для аналитики и рекламы.',
+    policyLink: 'Политика cookie',
+    acceptAll: 'Принять все',
+    rejectAll: 'Отклонить необязательные',
+    customize: 'Настроить',
+    save: 'Сохранить настройки',
+    back: 'Назад',
+    necessaryTitle: 'Строго необходимые',
+    necessaryDesc: 'Нужны для базовой работы сайта. Их нельзя отключить.',
+    analyticsTitle: 'Аналитические',
+    analyticsDesc: 'Помогают понять, как используется сайт (Google Analytics, Microsoft Clarity).',
+    advertisingTitle: 'Рекламные',
+    advertisingDesc: 'Оценивают эффективность рекламных кампаний (Bing/Microsoft Advertising).',
+  },
+}[lang];
+
+const policyHref = localizedHref(lang, '/politica-cookie');
+---
+<div id="ecosolar-cookie-banner" class="fixed inset-x-0 bottom-0 z-[100] hidden p-4 sm:p-6">
+  <div class="max-w-3xl mx-auto bg-white text-ink-900 rounded-2xl shadow-2xl border border-ink-100 p-5 sm:p-6">
+    <div data-cookie-view="banner">
+      <p class="text-sm text-ink-700 mb-4">
+        {copy.message} <a href={policyHref} class="underline text-brand-600">{copy.policyLink}</a>.
+      </p>
+      <div class="flex flex-wrap gap-2.5">
+        <button type="button" data-cookie-accept-all class="px-4 py-2 rounded-lg text-sm font-semibold bg-brand-500 hover:bg-brand-600 text-white">
+          {copy.acceptAll}
+        </button>
+        <button type="button" data-cookie-reject-all class="px-4 py-2 rounded-lg text-sm font-semibold bg-ink-50 hover:bg-ink-100 text-ink-900">
+          {copy.rejectAll}
+        </button>
+        <button type="button" data-cookie-customize class="px-4 py-2 rounded-lg text-sm font-semibold border border-ink-100 hover:bg-ink-50 text-ink-900">
+          {copy.customize}
+        </button>
+      </div>
+    </div>
+
+    <div data-cookie-view="panel" class="hidden">
+      <div class="space-y-4 mb-5">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="font-heading font-semibold text-sm text-ink-900">{copy.necessaryTitle}</p>
+            <p class="text-xs text-ink-400">{copy.necessaryDesc}</p>
+          </div>
+          <input type="checkbox" checked disabled class="mt-1 shrink-0 w-4 h-4" />
+        </div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="font-heading font-semibold text-sm text-ink-900">{copy.analyticsTitle}</p>
+            <p class="text-xs text-ink-400">{copy.analyticsDesc}</p>
+          </div>
+          <input type="checkbox" data-cookie-toggle="analytics" class="mt-1 shrink-0 w-4 h-4" />
+        </div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="font-heading font-semibold text-sm text-ink-900">{copy.advertisingTitle}</p>
+            <p class="text-xs text-ink-400">{copy.advertisingDesc}</p>
+          </div>
+          <input type="checkbox" data-cookie-toggle="advertising" class="mt-1 shrink-0 w-4 h-4" />
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2.5">
+        <button type="button" data-cookie-save class="px-4 py-2 rounded-lg text-sm font-semibold bg-brand-500 hover:bg-brand-600 text-white">
+          {copy.save}
+        </button>
+        <button type="button" data-cookie-back class="px-4 py-2 rounded-lg text-sm font-semibold border border-ink-100 hover:bg-ink-50 text-ink-900">
+          {copy.back}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ ga4Id: SITE.ga4Id, clarityId: SITE.clarityId, bingUetTagId: SITE.bingUetTagId }}>
+  const STORAGE_KEY = 'ecosolar-cookie-consent';
+  const loaded = { ga4: false, clarity: false, bing: false };
+
+  function hasReal(v) {
+    return typeof v === 'string' && v.trim().length > 0;
+  }
+
+  function readConsent() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function writeConsent(consent) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...consent, necessary: true, ts: Date.now(), v: 1 }));
+    } catch {}
+  }
+
+  function loadGA4() {
+    if (loaded.ga4 || !hasReal(ga4Id)) return;
+    loaded.ga4 = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', ga4Id);
+  }
+
+  function loadClarity() {
+    if (loaded.clarity || !hasReal(clarityId)) return;
+    loaded.clarity = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', clarityId);
+  }
+
+  function loadBingUet() {
+    if (loaded.bing || !hasReal(bingUetTagId)) return;
+    loaded.bing = true;
+    window.uetq = window.uetq || [];
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://bat.bing.com/bat.js';
+    s.onload = function () {
+      if (window.UET) {
+        window.uetq = new window.UET({ ti: bingUetTagId });
+        window.uetq.push('pageLoad');
+      }
+    };
+    document.head.appendChild(s);
+  }
+
+  function applyConsent(consent) {
+    if (consent.analytics) {
+      loadGA4();
+      loadClarity();
+    }
+    if (consent.advertising) {
+      loadBingUet();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const banner = document.getElementById('ecosolar-cookie-banner');
+    if (!banner) return;
+    const bannerView = banner.querySelector('[data-cookie-view="banner"]');
+    const panelView = banner.querySelector('[data-cookie-view="panel"]');
+    const analyticsToggle = banner.querySelector('[data-cookie-toggle="analytics"]');
+    const advertisingToggle = banner.querySelector('[data-cookie-toggle="advertising"]');
+
+    function showBanner() {
+      banner.classList.remove('hidden');
+      bannerView.classList.remove('hidden');
+      panelView.classList.add('hidden');
+    }
+
+    function showPanel() {
+      const current = readConsent() || { analytics: false, advertising: false };
+      analyticsToggle.checked = !!current.analytics;
+      advertisingToggle.checked = !!current.advertising;
+      banner.classList.remove('hidden');
+      bannerView.classList.add('hidden');
+      panelView.classList.remove('hidden');
+    }
+
+    function hideBanner() {
+      banner.classList.add('hidden');
+    }
+
+    banner.querySelector('[data-cookie-accept-all]').addEventListener('click', function () {
+      const consent = { analytics: true, advertising: true };
+      writeConsent(consent);
+      applyConsent(consent);
+      hideBanner();
+    });
+
+    banner.querySelector('[data-cookie-reject-all]').addEventListener('click', function () {
+      const consent = { analytics: false, advertising: false };
+      writeConsent(consent);
+      hideBanner();
+    });
+
+    banner.querySelector('[data-cookie-customize]').addEventListener('click', showPanel);
+    banner.querySelector('[data-cookie-back]').addEventListener('click', showBanner);
+
+    banner.querySelector('[data-cookie-save]').addEventListener('click', function () {
+      const consent = { analytics: analyticsToggle.checked, advertising: advertisingToggle.checked };
+      writeConsent(consent);
+      applyConsent(consent);
+      hideBanner();
+    });
+
+    const existing = readConsent();
+    if (existing) {
+      applyConsent(existing);
+    } else {
+      showBanner();
+    }
+
+    window.ecosolarCookieSettings = { open: showPanel };
+  });
+</script>

@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, hasValue } from '../lib/site';
+---
+<BaseLayout
+  title="Politica de confidențialitate | Ecosolar"
+  description="Politica de confidențialitate și prelucrare a datelor cu caracter personal a Eco Solar Park SRL."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Politica de confidențialitate' }]} />
+    <h1 class="mb-4">Politica de confidențialitate</h1>
+
+    <div class="text-sm text-ink-400 mb-8 space-y-1">
+      <p>Site: ecosolar.md</p>
+      <p>
+        Operator de date: {SITE.legalName}
+        {hasValue(SITE.idno) && <>, IDNO {SITE.idno}</>}
+        {hasValue(SITE.legalAddress) && <>, sediu juridic: {SITE.legalAddress}</>}, Republica Moldova
+      </p>
+      <p>Data intrării în vigoare: 4 septembrie 2026</p>
+      <p>Data ultimei actualizări: 4 septembrie 2026</p>
+    </div>
+
+    <div class="prose-article">
+      <h2>1. Dispoziții generale</h2>
+      <p>
+        Prezenta Politică de confidențialitate (denumită în continuare „Politica”) stabilește modul de prelucrare
+        a datelor cu caracter personal ale utilizatorilor site-ului ecosolar.md (denumit în continuare „Site-ul”)
+        de către compania {SITE.legalName} (denumită în continuare „Operator”, „noi”).
+      </p>
+      <p>
+        Operatorul este furnizor licențiat ANRE (Agenția Națională pentru Reglementare în Energetică din Republica
+        Moldova) de energie electrică din surse regenerabile (solar, eolian) și administrator al unei Părți
+        Responsabile cu Echilibrarea sistemului energetic (PRE) pentru persoane juridice din Republica Moldova.
+      </p>
+      <p>
+        Politica se aplică tuturor datelor pe care Operatorul le obține de la vizitatorii Site-ului și este
+        elaborată în conformitate cu Legea Republicii Moldova nr. 133/2011 „Privind protecția datelor cu caracter
+        personal” (cu modificările și completările ulterioare). De asemenea, urmărim să respectăm cele mai bune
+        practici internaționale de protecție a datelor, inclusiv principiile Regulamentului general privind
+        protecția datelor al UE (GDPR), pentru a asigura transparență și încredere partenerilor noștri B2B, chiar
+        dacă acest regulament nu se aplică formal Operatorului.
+      </p>
+      <p>
+        Utilizând Site-ul și trimițând date prin formularul de cerere, confirmi că ai luat cunoștință de prezenta
+        Politică și că ești de acord cu modul de prelucrare a datelor descris în aceasta.
+      </p>
+
+      <h2>2. Ce date colectăm</h2>
+      <h3>2.1. Date furnizate voluntar de tine</h3>
+      <p>La completarea formularului de cerere de pe Site, primim:</p>
+      <ul>
+        <li>numele companiei și numele persoanei de contact;</li>
+        <li>adresa de email de contact;</li>
+        <li>numărul de telefon;</li>
+        <li>consumul lunar aproximativ (opțional) și serviciul de interes;</li>
+        <li>textul comentariului (opțional).</li>
+      </ul>
+      <p>
+        Aceste date le furnizezi tu însuți/însăți, trimițând cererea. Formularul este procesat printr-un serviciu
+        terț de gestionare a formularelor (Web3Forms), iar datele ajung direct la adresa de email a Operatorului.
+        În prezent, Operatorul nu folosește o bază de date proprie sau un sistem CRM pentru stocarea acestor date
+        pe serverul Site-ului, datele sunt păstrate în căsuța de email a companiei.
+      </p>
+
+      <h3>2.2. Date colectate automat</h3>
+      <p>
+        La vizitarea Site-ului, automat, cu ajutorul fișierelor cookie și al tehnologiilor similare, pot fi
+        colectate: adresa IP, tipul și versiunea browserului și a sistemului de operare, informații despre
+        dispozitiv, paginile vizitate și timpul petrecut pe acestea, sursa accesării Site-ului (de exemplu, motor
+        de căutare, anunț publicitar, acces direct).
+      </p>
+      <p>
+        O descriere detaliată a fișierelor cookie folosite este disponibilă separat, în{' '}
+        <a href="/politica-cookie">Politica de utilizare a cookie-urilor</a>.
+      </p>
+
+      <h2>3. Scopurile prelucrării datelor</h2>
+      <p>Prelucrăm datele cu caracter personal în următoarele scopuri:</p>
+      <ul>
+        <li>procesarea cererii tale și comunicarea legată de serviciile companiei (furnizare de energie electrică din surse regenerabile, servicii de echilibrare PRE);</li>
+        <li>corespondența de afaceri cu clienții potențiali și existenți;</li>
+        <li>analiza traficului Site-ului și a comportamentului utilizatorilor, pentru a-i îmbunătăți conținutul și navigarea;</li>
+        <li>evaluarea eficienței surselor de trafic și a canalelor publicitare (dacă există acordul tău pentru cookie-uri analitice și publicitare).</li>
+      </ul>
+
+      <h2>4. Temeiurile juridice ale prelucrării</h2>
+      <p>Prelucrarea datelor se realizează pe baza:</p>
+      <ul>
+        <li><strong>acordului utilizatorului</strong>: completând și trimițând formularul de cerere, îți exprimi acordul pentru prelucrarea datelor indicate în acesta, în scopul de a lua legătura cu tine;</li>
+        <li><strong>interesului legitim al Operatorului</strong>: colectarea de informații analitice agregate, în mare parte anonimizate, despre traficul Site-ului, în scopul îmbunătățirii acestuia;</li>
+        <li><strong>acordului pentru utilizarea cookie-urilor</strong>: pentru cookie-urile analitice și publicitare, conform descrierii din Politica de utilizare a cookie-urilor.</li>
+      </ul>
+
+      <h2>5. Cui sunt transmise datele</h2>
+      <p>
+        Accesul la datele obținute prin formularul de cerere este permis doar angajaților autorizați ai
+        {' '}{SITE.legalName}, responsabili cu procesarea solicitărilor clienților.
+      </p>
+      <p>Pentru analiza Site-ului sunt folosite următoarele servicii terțe, care acționează ca operatori independenți de date:</p>
+      <ul>
+        <li><strong>Google Analytics (Google LLC)</strong>: analiza traficului și a comportamentului utilizatorilor;</li>
+        <li><strong>Microsoft Clarity (Microsoft Corporation)</strong>: analiza comportamentului utilizatorilor (hărți de click, înregistrări de sesiune);</li>
+        <li><strong>Bing / Microsoft Advertising (Microsoft Corporation)</strong>: evaluarea eficienței campaniilor publicitare.</li>
+      </ul>
+      <p>
+        Aceste servicii se activează doar după acordul tău pentru cookie-uri analitice și publicitare, exprimat
+        prin bannerul de consimțământ de pe Site, conform Politicii de utilizare a cookie-urilor. Aceste companii
+        pot prelucra date pe servere situate în afara Republicii Moldova, inclusiv în SUA și în țări din UE,
+        conform propriilor politici de confidențialitate:
+      </p>
+      <ul>
+        <li>Politica de confidențialitate Google: <a href="https://policies.google.com/privacy" rel="nofollow" target="_blank">policies.google.com/privacy</a></li>
+        <li>Declarația de confidențialitate Microsoft: <a href="https://privacy.microsoft.com/ro-ro/privacystatement" rel="nofollow" target="_blank">privacy.microsoft.com</a></li>
+        <li>Notificarea de confidențialitate Microsoft Clarity: <a href="https://clarity.microsoft.com/terms" rel="nofollow" target="_blank">clarity.microsoft.com/terms</a></li>
+      </ul>
+      <p>Operatorul nu vinde și nu transmite date cu caracter personal către terți în scopuri de marketing fără acordul tău separat.</p>
+
+      <h2>6. Perioada de stocare a datelor</h2>
+      <ul>
+        <li>Datele obținute prin formularul de cerere sunt păstrate pe durata necesară procesării solicitării și corespondenței ulterioare, dar nu mai mult decât este rezonabil necesar pentru scopul relației cu clientul, cu excepția cazurilor în care legislația impune altfel (de exemplu, pentru evidența contabilă sau fiscală aferentă contractelor încheiate).</li>
+        <li>Duratele de stocare ale cookie-urilor analitice și publicitare sunt indicate în Politica de utilizare a cookie-urilor.</li>
+      </ul>
+
+      <h2>7. Drepturile tale</h2>
+      <p>Conform Legii nr. 133/2011 „Privind protecția datelor cu caracter personal”, ai dreptul:</p>
+      <ul>
+        <li>să afli dacă datele tale sunt prelucrate și în ce măsură;</li>
+        <li>să soliciți acces la datele tale cu caracter personal;</li>
+        <li>să soliciți rectificarea datelor inexacte;</li>
+        <li>să soliciți ștergerea datelor, dacă nu există un temei legal pentru prelucrarea lor ulterioară;</li>
+        <li>să te opui prelucrării datelor, în cazurile prevăzute de lege;</li>
+        <li>să îți retragi oricând acordul dat anterior pentru prelucrarea datelor;</li>
+        <li>să depui o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal din Republica Moldova (CNPDCP, datepersonale.md), dacă consideri că drepturile tale au fost încălcate.</li>
+      </ul>
+      <p>
+        Pentru a exercita oricare dintre aceste drepturi, trimite o solicitare la adresa de email indicată la
+        secțiunea „Contact” de mai jos. Vom analiza solicitarea ta și îți vom răspunde în termenul rezonabil
+        prevăzut de lege.
+      </p>
+
+      <h2>8. Securitatea datelor</h2>
+      <p>
+        Operatorul ia măsuri organizatorice și tehnice rezonabile pentru a proteja datele cu caracter personal
+        împotriva accesului neautorizat, modificării, divulgării sau distrugerii, inclusiv utilizarea unei conexiuni
+        securizate (HTTPS) pe Site și limitarea accesului la cererile primite doar la angajații autorizați.
+      </p>
+
+      <h2>9. Fișiere cookie</h2>
+      <p>
+        Site-ul folosește fișiere cookie pentru funcționarea sa și pentru analiză. Informații detaliate despre
+        categoriile de cookie-uri folosite, scopurile lor și modul de gestionare sunt disponibile separat, în{' '}
+        <a href="/politica-cookie">Politica de utilizare a cookie-urilor</a>.
+      </p>
+
+      <h2>10. Prelucrarea datelor minorilor</h2>
+      <p>
+        Site-ul este destinat persoanelor juridice (public B2B) și nu se adresează persoanelor sub 18 ani.
+        Operatorul nu colectează în mod deliberat date cu caracter personal ale minorilor. Dacă ai aflat că un
+        minor ne-a furnizat datele sale, te rugăm să ne contactezi pentru a le șterge.
+      </p>
+
+      <h2>11. Modificări ale Politicii</h2>
+      <p>
+        Operatorul își rezervă dreptul de a modifica prezenta Politică. Versiunea actuală este mereu disponibilă pe
+        această pagină a Site-ului, cu data ultimei actualizări. Recomandăm să consulți periodic textul Politicii.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>Pentru orice întrebare legată de prelucrarea datelor cu caracter personal și de prezenta Politică, ne poți contacta:</p>
+      <ul>
+        <li><strong>Compania:</strong> {SITE.legalName}</li>
+        <li><strong>Email:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        {hasValue(SITE.phone) && <li><strong>Telefon:</strong> {SITE.phone}</li>}
+        {hasValue(SITE.legalAddress) && <li><strong>Adresă:</strong> {SITE.legalAddress}</li>}
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

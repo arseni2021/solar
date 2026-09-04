@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import { articleHref } from '../../../lib/site';
+
+const all = await getCollection('articles-ru');
+all.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout
+  lang="ru"
+  title="Блог | Ecosolar"
+  description="Практические руководства о смене поставщика электроэнергии для компаний Молдовы."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/ru' }, { label: 'Блог' }]} />
+    <h1 class="mb-3">Блог Ecosolar</h1>
+    <p class="text-ink-700 max-w-2xl mb-10">
+      Практические руководства о смене поставщика электроэнергии, написанные для тех, кто принимает решения в компании.
+    </p>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {all.map((entry) => (
+        <ArticleCard
+          lang="ru"
+          title={entry.data.title}
+          description={entry.data.description}
+          cluster={entry.data.cluster}
+          href={articleHref('ru', entry.id)}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

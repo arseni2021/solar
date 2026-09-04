@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { articleHref, SITE, hasValue } from '../lib/site';
+import { Icon } from 'astro-icon/components';
+
+const articles = [
+  { title: 'Cum schimb furnizorul de energie electrică', slug: 'cum-schimb-furnizorul' },
+  { title: 'Ce acte sunt necesare pentru schimbarea furnizorului', slug: 'acte-necesare-schimbare-furnizor' },
+  { title: 'Cine poate ieși pe piața liberă a energiei electrice', slug: 'cine-poate-iesi-pe-piata-libera' },
+  { title: 'Furnizor de ultimă opțiune vs furnizor pe piața liberă', slug: 'furnizor-ultima-optiune-vs-piata-libera' },
+  { title: 'Ce se întâmplă cu contorul la schimbarea furnizorului', slug: 'ce-se-intampla-cu-contorul' },
+  { title: 'Va fi întrerupere de curent dacă schimb furnizorul', slug: 'va-fi-intrerupere-de-curent' },
+];
+
+const faqItems = [
+  {
+    question: 'Ce este piața liberă a energiei electrice?',
+    answer: 'Segmentul pieței în care o companie poate alege singură furnizorul de energie electrică, în locul furnizorului reglementat implicit, negociind direct preț și condiții.',
+  },
+  {
+    question: 'Firmele mici pot ieși pe piața liberă sau doar consumatorii mari?',
+    answer: 'Piața liberă din Moldova nu mai este rezervată doar consumatorilor mari. Detalii concrete pentru situația companiei tale găsești în <a href="/blog/cine-poate-iesi-pe-piata-libera">acest articol</a>.',
+  },
+  {
+    question: 'Ce se întâmplă dacă rămân fără furnizor pe piața liberă?',
+    answer: 'Intervine furnizorul de ultimă opțiune, care preia temporar alimentarea, la preț reglementat, pentru o perioadă limitată prevăzută de lege. Detalii în <a href="/blog/furnizor-ultima-optiune-vs-piata-libera">acest articol</a>.',
+  },
+  {
+    question: 'Trecerea pe piața liberă înseamnă vreo întrerupere sau lucrare la rețea?',
+    answer: 'Nu. Rețeaua de distribuție și contorul rămân exact aceleași, indiferent de furnizor. Detalii în <a href="/blog/ce-se-intampla-cu-contorul">acest articol</a>.',
+  },
+];
+
+if (hasValue(SITE.switchingProcessingDays)) {
+  faqItems.push({
+    question: 'Cât durează procesarea cererii de schimbare a furnizorului?',
+    answer: `${SITE.switchingProcessingDays}`,
+  });
+}
+if (hasValue(SITE.returnToRegulatedSupplierNote)) {
+  faqItems.push({
+    question: 'Pot reveni la furnizorul reglementat dacă mă răzgândesc?',
+    answer: `${SITE.returnToRegulatedSupplierNote}`,
+  });
+}
+---
+<BaseLayout
+  title="Piața liberă a energiei electrice în Moldova | Ecosolar"
+  description="Ce este piața liberă a energiei electrice în Republica Moldova, cine poate alege singur furnizorul și cum se face practic schimbarea."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Piața liberă' }]} />
+    <h1 class="mb-4">Piața liberă a energiei electrice în Republica Moldova</h1>
+    <p class="text-lg text-ink-700 max-w-2xl mb-10">
+      Ghidul pe scurt pentru o companie care ia în calcul să aleagă singură furnizorul de energie electrică, în
+      locul celui reglementat implicit.
+    </p>
+
+    <div class="prose-article">
+      <h2>Ce este piața liberă</h2>
+      <p>
+        Piața liberă (sau piața concurențială) a energiei electrice este segmentul pieței în care furnizarea nu mai
+        este alocată automat de stat, ci compania își alege singură furnizorul, dintre cei licențiați de ANRE
+        (Agenția Națională pentru Reglementare în Energetică), și negociază condiții de preț direct cu acesta.
+        Cadrul legal este stabilit prin Legea nr. 107/2016 cu privire la energia electrică, care a separat
+        activitățile de producere, transport, distribuție și furnizare, exact pentru a face posibilă această
+        alegere.
+      </p>
+
+      <h2>Cine reglementează piața</h2>
+      <p>
+        ANRE licențiază furnizorii, aprobă regulile pieței și supraveghează respectarea lor. Rețeaua de transport și
+        distribuție rămâne un serviciu reglementat, separat de furnizare, indiferent pe ce piață se află o companie.
+        Eco Solar Park este furnizor de energie electrică din surse regenerabile, licențiat de ANRE.
+      </p>
+
+      <h2>Piața angro, în spate</h2>
+      <p>
+        Din decembrie 2025, Republica Moldova are propriile piețe organizate de energie electrică, operate de OPEM
+        (Operatorul Pieței de Energie): piața pentru ziua următoare (PZU), lansată pe 10 decembrie 2025, și piața
+        intrazilnică (PPZ), lansată pe 17 decembrie 2025, dezvoltate cu sprijinul operatorului român OPCOM. Aceste
+        piețe stau la baza modului în care furnizorii își procură energia pe care o revând companiilor.
+        {hasValue(SITE.wholesaleMarketNote) && <> {SITE.wholesaleMarketNote}</>}
+      </p>
+
+      <h2>Cei doi pași practici</h2>
+      <p>
+        Pentru o companie, trecerea pe piața liberă înseamnă în esență doi pași: (1) alegerea unui furnizor și
+        semnarea unui contract de furnizare și (2) notificarea de către noul furnizor a operatorului de distribuție,
+        fără nicio intervenție fizică la locul de consum. Pașii exacți, cu documentele necesare, sunt detaliați în
+        articolele de mai jos.
+      </p>
+    </div>
+
+    <h2 class="mb-5 mt-12">Articole despre piața liberă</h2>
+    <div class="grid sm:grid-cols-2 gap-4 mb-14">
+      {articles.map((a) => (
+        <a href={articleHref('ro', a.slug)} class="flex items-center justify-between gap-3 bg-white rounded-xl border border-ink-100 p-5 hover:shadow-md transition-shadow">
+          <span class="font-heading font-semibold text-ink-900">{a.title}</span>
+          <Icon name="lucide:arrow-right" class="w-4 h-4 text-brand-500 shrink-0" />
+        </a>
+      ))}
+    </div>
+
+    <h2 class="text-center mb-10">Întrebări frecvente</h2>
+    <FAQAccordion items={faqItems} />
+
+    <div class="mt-12">
+      <CtaBanner />
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,131 @@
+---
+import { Icon } from 'astro-icon/components';
+import { SITE, SITE_TEXT, getFooterAfaceri, getFooterResurse, localizedHref, hasValue } from '../lib/site';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'ro' } = Astro.props;
+
+const year = new Date().getFullYear();
+const footerAfaceri = getFooterAfaceri(lang);
+const footerResurse = getFooterResurse(lang);
+const text = SITE_TEXT[lang];
+
+const copy = {
+  ro: {
+    tagline: 'Furnizor licențiat ANRE de energie electrică din surse regenerabile pentru companii din Republica Moldova.',
+    licenseBadge: hasValue(SITE.anreLicenseNumber) ? `Furnizor licențiat ANRE nr. ${SITE.anreLicenseNumber}` : 'Furnizor licențiat ANRE',
+    afaceriTitle: 'Pentru afaceri',
+    resurseTitle: 'Resurse',
+    contactTitle: 'Contact',
+    rights: 'Toate drepturile rezervate.',
+    privacy: 'Politica de confidențialitate',
+    terms: 'Termeni și condiții',
+    cookiePolicy: 'Politica de cookie-uri',
+    cookieSettings: 'Setări cookie',
+  },
+  ru: {
+    tagline: 'Поставщик электроэнергии из возобновляемых источников, лицензированный ANRE, для компаний Молдовы.',
+    licenseBadge: hasValue(SITE.anreLicenseNumber) ? `Поставщик, лицензированный ANRE, № ${SITE.anreLicenseNumber}` : 'Поставщик, лицензированный ANRE',
+    afaceriTitle: 'Для бизнеса',
+    resurseTitle: 'Ресурсы',
+    contactTitle: 'Контакты',
+    rights: 'Все права защищены.',
+    privacy: 'Политика конфиденциальности',
+    terms: 'Условия использования',
+    cookiePolicy: 'Политика cookie',
+    cookieSettings: 'Настройки cookie',
+  },
+}[lang];
+---
+<footer class="bg-ink-900 text-ink-100 pb-16 sm:pb-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <a href={localizedHref(lang, '/')} class="flex items-center gap-2 mb-4">
+        <img src="/logo.png" alt="Ecosolar" width="36" height="36" class="w-9 h-9" />
+        <span class="font-heading font-bold text-lg text-white">Ecosolar</span>
+      </a>
+      <p class="text-sm text-ink-400 mb-4">
+        {copy.tagline}
+      </p>
+      <span class="inline-flex items-center gap-2 text-xs bg-accent-500/15 text-accent-500 rounded-full px-3 py-1.5">
+        <Icon name="lucide:badge-check" class="w-4 h-4" />
+        {copy.licenseBadge}
+      </span>
+      {(hasValue(SITE.facebookUrl) || hasValue(SITE.linkedinUrl) || hasValue(SITE.instagramUrl)) && (
+        <div class="flex items-center gap-3 mt-4">
+          {hasValue(SITE.facebookUrl) && (
+            <a href={SITE.facebookUrl} rel="nofollow noopener" target="_blank" aria-label="Facebook" class="text-ink-400 hover:text-brand-300">
+              <Icon name="lucide:facebook" class="w-5 h-5" />
+            </a>
+          )}
+          {hasValue(SITE.linkedinUrl) && (
+            <a href={SITE.linkedinUrl} rel="nofollow noopener" target="_blank" aria-label="LinkedIn" class="text-ink-400 hover:text-brand-300">
+              <Icon name="lucide:linkedin" class="w-5 h-5" />
+            </a>
+          )}
+          {hasValue(SITE.instagramUrl) && (
+            <a href={SITE.instagramUrl} rel="nofollow noopener" target="_blank" aria-label="Instagram" class="text-ink-400 hover:text-brand-300">
+              <Icon name="lucide:instagram" class="w-5 h-5" />
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+
+    <div>
+      <h4 class="font-heading font-semibold text-white mb-3">{copy.afaceriTitle}</h4>
+      <ul class="space-y-2 text-sm">
+        {footerAfaceri.map((link) => (
+          <li><a href={link.href} class="text-ink-400 hover:text-brand-300">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-heading font-semibold text-white mb-3">{copy.resurseTitle}</h4>
+      <ul class="space-y-2 text-sm">
+        {footerResurse.map((link) => (
+          <li><a href={link.href} class="text-ink-400 hover:text-brand-300">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-heading font-semibold text-white mb-3">{copy.contactTitle}</h4>
+      <ul class="space-y-2 text-sm text-ink-400">
+        {hasValue(SITE.phone) && (
+          <li class="flex items-center gap-2"><Icon name="lucide:phone" class="w-4 h-4 shrink-0" /> {SITE.phone}</li>
+        )}
+        <li class="flex items-center gap-2"><Icon name="lucide:mail" class="w-4 h-4 shrink-0" /> <a href={`mailto:${SITE.email}`} class="hover:text-brand-300">{SITE.email}</a></li>
+        {hasValue(SITE.legalAddress) && (
+          <li class="flex items-center gap-2"><Icon name="lucide:map-pin" class="w-4 h-4 shrink-0" /> {SITE.legalAddress}</li>
+        )}
+        <li class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4 shrink-0" /> {text.workHours}</li>
+        <li class="flex items-center gap-2"><Icon name="lucide:zap" class="w-4 h-4 shrink-0" /> {text.responseTime}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-400">
+      <p>© {year} {SITE.legalName}. {copy.rights}</p>
+      <div class="flex flex-wrap gap-4">
+        <a href={localizedHref(lang, '/politica-de-confidentialitate')} class="hover:text-brand-300">{copy.privacy}</a>
+        <a href={localizedHref(lang, '/politica-cookie')} class="hover:text-brand-300">{copy.cookiePolicy}</a>
+        <a href={localizedHref(lang, '/termeni-si-conditii')} class="hover:text-brand-300">{copy.terms}</a>
+        <button type="button" data-open-cookie-settings class="hover:text-brand-300">{copy.cookieSettings}</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-open-cookie-settings]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      window.ecosolarCookieSettings?.open();
+    });
+  });
+</script>

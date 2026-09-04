@@ -1,0 +1,92 @@
+---
+import { localizedHref, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'ro' } = Astro.props;
+
+const copy = {
+  ro: {
+    consumLabel: 'Consum lunar (kWh)',
+    consumPlaceholder: 'ex. 5000',
+    tarifLabel: 'Tariful tău actual (bani/kWh)',
+    tarifPlaceholder: 'ex. 245',
+    note: 'Consumul și tariful actual ajută la pregătirea unei oferte exacte. Nu afișăm o economie estimată aici, pentru că depinde de tariful nostru real, valabil la data cererii tale.',
+    cta: 'Trimite datele și primește oferta exactă',
+  },
+  ru: {
+    consumLabel: 'Месячное потребление (кВт·ч)',
+    consumPlaceholder: 'напр. 5000',
+    tarifLabel: 'Твой текущий тариф (бань/кВт·ч)',
+    tarifPlaceholder: 'напр. 245',
+    note: 'Потребление и текущий тариф помогают подготовить точное предложение. Мы не показываем расчётную экономию здесь, потому что она зависит от нашего актуального тарифа на момент твоего запроса.',
+    cta: 'Отправить данные и получить точное предложение',
+  },
+}[lang];
+---
+<div class="bg-white rounded-2xl border border-ink-100 shadow-sm p-6 sm:p-10" data-calc>
+  <div class="grid sm:grid-cols-2 gap-6 mb-6">
+    <div>
+      <label for="calc-consum" class="block text-sm font-medium text-ink-700 mb-1">
+        {copy.consumLabel}
+      </label>
+      <input
+        id="calc-consum"
+        type="number"
+        min="0"
+        max="10000000"
+        step="1"
+        placeholder={copy.consumPlaceholder}
+        class="w-full rounded-lg border border-ink-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500"
+        data-calc-consum
+      />
+    </div>
+    <div>
+      <label for="calc-tarif" class="block text-sm font-medium text-ink-700 mb-1">
+        {copy.tarifLabel}
+      </label>
+      <input
+        id="calc-tarif"
+        type="number"
+        min="0"
+        max="10000"
+        step="0.1"
+        placeholder={copy.tarifPlaceholder}
+        class="w-full rounded-lg border border-ink-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500"
+        data-calc-tarif
+      />
+    </div>
+  </div>
+
+  <p class="text-xs text-ink-400 mb-6">{copy.note}</p>
+
+  <div class="text-center">
+    <a
+      href={`${localizedHref(lang, '/oferta')}#form`}
+      data-calc-cta
+      class="inline-flex items-center justify-center gap-2 font-heading font-semibold rounded-lg px-6 py-3 transition-colors bg-brand-500 hover:bg-brand-600 text-white"
+    >
+      {copy.cta}
+    </a>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-calc]').forEach((calc) => {
+    const consumInput = calc.querySelector('[data-calc-consum]');
+    const tarifInput = calc.querySelector('[data-calc-tarif]');
+    const ctaEl = calc.querySelector('[data-calc-cta]');
+
+    function update() {
+      if (!ctaEl) return;
+      const url = new URL(ctaEl.getAttribute('href'), window.location.origin);
+      if (consumInput.value) url.searchParams.set('consum', consumInput.value);
+      if (tarifInput.value) url.searchParams.set('tarif', tarifInput.value);
+      ctaEl.setAttribute('href', url.pathname + url.search + url.hash);
+    }
+
+    consumInput.addEventListener('input', update);
+    tarifInput.addEventListener('input', update);
+  });
+</script>

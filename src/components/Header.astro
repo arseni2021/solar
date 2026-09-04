@@ -1,0 +1,125 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getMainNav, localizedHref } from '../lib/site';
+import { UI, alternatePath, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'ro' } = Astro.props;
+
+const nav = getMainNav(lang);
+const t = UI[lang];
+const currentPath = Astro.url.pathname;
+const alt = alternatePath(currentPath, lang);
+const otherLang: Lang = lang === 'ro' ? 'ru' : 'ro';
+const otherLangHref = otherLang === 'ru' ? alt.ru : alt.ro;
+
+function isActive(href: string) {
+  if (href === '/' || href === '/ru') return currentPath === href;
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+---
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-ink-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 sm:h-20">
+    <a href={localizedHref(lang, '/')} class="flex items-center gap-2 shrink-0">
+      <img src="/logo.png" alt="Ecosolar, Eco Solar Park SRL" width="40" height="40" class="w-9 h-9 sm:w-10 sm:h-10" />
+      <span class="font-heading font-bold text-lg text-ink-900">Ecosolar</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navigare principală">
+      {nav.map((item) => (
+        <div class="relative group">
+          <a
+            href={item.href}
+            class={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive(item.href) ? 'text-brand-600' : 'text-ink-700 hover:text-brand-600'}`}
+          >
+            {item.label}
+            {item.children && <Icon name="lucide:chevron-down" class="w-3.5 h-3.5" />}
+          </a>
+          {item.children && (
+            <div class="absolute left-0 top-full pt-2 hidden group-hover:block">
+              <div class="bg-white rounded-xl shadow-lg border border-ink-100 py-2 min-w-64">
+                {item.children.map((child) => (
+                  <a href={child.href} class="block px-4 py-2 text-sm text-ink-700 hover:bg-brand-50 hover:text-brand-600">
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a
+        href={otherLangHref}
+        class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-sm font-heading font-semibold text-ink-700 border border-ink-100 hover:bg-ink-50"
+        aria-label={`Switch to ${otherLang === 'ru' ? 'Russian' : 'Romanian'}`}
+      >
+        {t.langSwitchLabel}
+      </a>
+      <a
+        href={localizedHref(lang, '/oferta')}
+        class="hidden sm:inline-flex items-center justify-center gap-2 font-heading font-semibold rounded-lg px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white transition-colors text-sm"
+      >
+        {t.requestOffer}
+      </a>
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-ink-900 hover:bg-ink-50"
+        aria-label="Deschide meniul"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="lucide:menu" class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-ink-100 bg-white">
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Navigare mobilă">
+      {nav.map((item) => (
+        <div>
+          <a href={item.href} class="block px-3 py-2.5 rounded-lg text-ink-900 font-medium hover:bg-brand-50">
+            {item.label}
+          </a>
+          {item.children && (
+            <div class="pl-4 flex flex-col">
+              {item.children.map((child) => (
+                <a href={child.href} class="block px-3 py-2 rounded-lg text-sm text-ink-700 hover:bg-brand-50">
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <a href={otherLangHref} class="mt-2 text-center font-heading font-semibold rounded-lg px-5 py-2.5 border border-ink-100 text-ink-700">
+        {otherLang === 'ru' ? 'Русская версия' : 'Versiunea în română'}
+      </a>
+      <a href={localizedHref(lang, '/oferta')} class="mt-2 text-center font-heading font-semibold rounded-lg px-5 py-3 bg-brand-500 text-white">
+        {t.requestOffer}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<a
+  href={localizedHref(lang, '/oferta')}
+  class="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-brand-500 text-white text-center font-heading font-semibold py-3.5"
+>
+  {t.requestOffer}
+</a>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!!isHidden));
+  });
+</script>

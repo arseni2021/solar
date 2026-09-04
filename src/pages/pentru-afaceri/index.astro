@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { Icon } from 'astro-icon/components';
+
+const caracteristici = [
+  {
+    icon: 'lucide:leaf',
+    title: 'Origine preponderent regenerabilă',
+    text: 'Energia furnizată provine în proporție dominantă din surse regenerabile (proprii și agregate), cu posibilitatea emiterii de certificate de origine pentru clienții interesați de raportarea ESG.',
+    href: '/pentru-afaceri/energie-verde-pentru-companii',
+  },
+  {
+    icon: 'lucide:badge-percent',
+    title: 'Prețuri competitive și transparente',
+    text: 'Tarife clare și competitive pentru energia electrică furnizată, fără formule ascunse sau condiții neclare în contract.',
+  },
+  {
+    icon: 'lucide:settings-2',
+    title: 'Soluții personalizate',
+    text: 'Contracte flexibile pentru consumatorii industriali, cu posibilitatea de integrare a sistemelor de autoconsum, stocare locală și optimizare a consumului.',
+    href: '/pentru-afaceri/solutii-industriale',
+  },
+  {
+    icon: 'lucide:smartphone',
+    title: 'Platformă digitală pentru clienți',
+    text: 'Urmărirea consumului, facturare electronică, prognoză personalizată, analiză de eficiență energetică și suport tehnic online.',
+  },
+];
+---
+<BaseLayout
+  title="Furnizarea energiei electrice pentru companii | Ecosolar"
+  description="Furnizare de energie electrică din surse regenerabile pentru IMM-uri și consumatori industriali din Republica Moldova, prețuri transparente, soluții personalizate."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Pentru afaceri' }]} />
+    <h1 class="mb-4">Furnizarea energiei electrice pentru afacerea ta</h1>
+    <p class="text-lg text-ink-700 max-w-2xl mb-10">
+      O direcție strategică a companiei Eco Solar Park, axată pe integrarea energiei regenerabile în consumul
+      final și pe crearea unui model sustenabil de livrare a electricității către clienți comerciali și
+      industriali.
+    </p>
+
+    <div class="prose-article mb-10">
+      <h2>Pentru cine</h2>
+      <ul>
+        <li><strong>IMM-uri</strong> interesate de surse verzi de energie.</li>
+        <li><strong>Consumatori industriali</strong> cu profil predictibil și consum constant.</li>
+      </ul>
+
+      <h2>Modelul de aprovizionare</h2>
+      <p>
+        Furnizarea energiei electrice se bazează preponderent pe producție proprie și agregată, completată cu
+        achiziții de pe piața angro.
+      </p>
+    </div>
+
+    <h2 class="mb-5">Caracteristici cheie ale serviciului</h2>
+    <div class="grid sm:grid-cols-2 gap-6 mb-14">
+      {caracteristici.map((c) => (
+        <div class="bg-white rounded-2xl border border-ink-100 p-6">
+          <span class="inline-flex items-center justify-center rounded-full bg-brand-100 p-3 mb-4">
+            <Icon name={c.icon} class="w-6 h-6 text-brand-500" />
+          </span>
+          <h3 class="font-heading font-semibold text-lg text-ink-900 mb-2">{c.title}</h3>
+          <p class="text-ink-700 mb-3">{c.text}</p>
+          {c.href && (
+            <a href={c.href} class="inline-flex items-center gap-1 text-brand-600 font-semibold text-sm hover:gap-2 transition-all">
+              Detalii <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-ink-50 rounded-2xl p-8 mb-14">
+      <h2 class="mb-3">Vrei să afli cât ai plăti?</h2>
+      <p class="text-ink-700 mb-4">
+        Foloseşte calculatorul de economie pentru o estimare orientativă, apoi solicită o ofertă personalizată
+        pentru cifre exacte.
+      </p>
+      <a href="/calculator-economie" class="text-brand-600 font-semibold hover:underline">
+        Deschide calculatorul de economie →
+      </a>
+    </div>
+
+    <CtaBanner />
+  </div>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, hasValue } from '../lib/site';
+---
+<BaseLayout
+  title="Termeni și condiții | Ecosolar"
+  description="Termenii și condițiile de utilizare a site-ului ecosolar.md, operat de Eco Solar Park SRL."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Termeni și condiții' }]} />
+    <h1 class="mb-6">Termeni și condiții</h1>
+
+    <div class="prose-article">
+      <p>
+        Acest site (ecosolar.md) este operat de {SITE.legalName}
+        {hasValue(SITE.idno) && <> ({SITE.idno})</>}
+        {hasValue(SITE.legalAddress) && <>, cu sediul în {SITE.legalAddress}</>}.
+        Utilizarea site-ului implică acceptarea termenilor de mai jos.
+      </p>
+
+      <h2>Conținutul site-ului</h2>
+      <p>
+        Informațiile publicate pe acest site, inclusiv prețurile orientative, formulele de calcul și estimările
+        din calculatorul de economie, au caracter informativ și nu constituie o ofertă contractuală fermă.
+        Oferta finală de preț este comunicată individual, în urma unei cereri transmise prin formularul de pe site.
+      </p>
+
+      <h2>Relația contractuală</h2>
+      <p>
+        Trimiterea unei cereri prin formularul „Solicită o ofertă” nu generează automat un contract de furnizare a
+        energiei electrice. Contractul devine valabil doar după semnarea sa explicită de către ambele părți.
+      </p>
+
+      <h2>Proprietate intelectuală</h2>
+      <p>
+        Conținutul acestui site (texte, logo, grafică) aparține {SITE.legalName} și nu poate fi reprodus fără acord
+        scris prealabil, cu excepția citărilor rezonabile cu menționarea sursei.
+      </p>
+
+      <h2>Limitarea răspunderii</h2>
+      <p>
+        Depunem eforturi rezonabile pentru a menține informațiile de pe site actualizate și corecte, însă nu
+        garantăm absența oricăror erori sau întârzieri în actualizarea cifrelor legate de tarife reglementate,
+        praguri de eligibilitate sau alte date supuse modificărilor legislative.
+      </p>
+
+      <h2>Legea aplicabilă</h2>
+      <p>
+        Acești termeni sunt guvernați de legislația Republicii Moldova.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Pentru întrebări legate de acești termeni, ne poți scrie la <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+
+    </div>
+  </div>
+</BaseLayout>

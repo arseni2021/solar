@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs, { type Crumb } from '../components/Breadcrumbs.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE } from '../lib/site';
+import { UI, type Lang } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  cluster: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  breadcrumbs: Crumb[];
+  lang?: Lang;
+}
+
+const { title, description, cluster, pubDate, updatedDate, breadcrumbs, lang = 'ro' } = Astro.props;
+const t = UI[lang];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: `${SITE.domain}/og-image.jpg`,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Organization', name: SITE.legalName },
+  publisher: { '@type': 'Organization', name: SITE.legalName, logo: { '@type': 'ImageObject', url: `${SITE.domain}/logo.png` } },
+  inLanguage: lang === 'ru' ? 'ru-MD' : 'ro-MD',
+};
+
+const dateFmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'ro-RO', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={`${title} | Ecosolar`} description={description} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={breadcrumbs} lang={lang} />
+    <span class="inline-block text-xs font-semibold text-brand-600 bg-brand-50 rounded-full px-3 py-1 mb-4">
+      {cluster}
+    </span>
+    <h1 class="mb-3">{title}</h1>
+    <p class="text-sm text-ink-400 mb-8">
+      {t.publishedOn} {dateFmt.format(pubDate)}
+      {updatedDate && ` · ${t.updatedOn} ${dateFmt.format(updatedDate)}`}
+    </p>
+    <div class="prose-article">
+      <slot />
+    </div>
+    <div class="mt-12">
+      <CtaBanner compact lang={lang} />
+    </div>
+  </article>
+</BaseLayout>

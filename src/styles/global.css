@@ -1,0 +1,132 @@
+@import "tailwindcss";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
+@theme {
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-brand-50: #eaf7ee;
+  --color-brand-100: #cfeeda;
+  --color-brand-300: #7fce9b;
+  --color-brand-500: #2e9e5b;
+  --color-brand-600: #22824a;
+  --color-brand-700: #1b6b3c;
+  --color-brand-900: #0f3d22;
+
+  --color-ink-50: #f5f6f7;
+  --color-ink-100: #e7e9ec;
+  --color-ink-400: #8a93a3;
+  --color-ink-700: #3a4250;
+  --color-ink-900: #12161f;
+
+  --color-accent-500: #f5a524;
+
+  --color-success: #2e9e5b;
+  --color-warning: #e0a020;
+  --color-danger: #d64545;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p, li {
+  line-height: 1.6;
+}
+
+.prose-article :where(h2) {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-article :where(h3) {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.prose-article :where(p) {
+  margin-bottom: 1.25rem;
+  color: var(--color-ink-700);
+}
+
+.prose-article :where(ul, ol) {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  color: var(--color-ink-700);
+}
+
+.prose-article :where(ul) {
+  list-style-type: disc;
+}
+
+.prose-article :where(ol) {
+  list-style-type: decimal;
+}
+
+.prose-article :where(a) {
+  color: var(--color-brand-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-article :where(strong) {
+  color: var(--color-ink-900);
+}
+
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.prose-article th,
+.prose-article td {
+  border: 1px solid var(--color-ink-100);
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose-article th {
+  background: var(--color-ink-50);
+  font-weight: 600;
+  color: var(--color-ink-900);
+}
+
+details[open] summary .chevron {
+  transform: rotate(180deg);
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}

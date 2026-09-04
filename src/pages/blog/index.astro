@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { articleHref } from '../../lib/site';
+
+const all = await getCollection('articles');
+all.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout
+  title="Blog | Ecosolar"
+  description="Ghiduri practice despre schimbarea furnizorului de energie electrică pentru companii din Moldova."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Blog' }]} />
+    <h1 class="mb-3">Blog Ecosolar</h1>
+    <p class="text-ink-700 max-w-2xl mb-10">
+      Ghiduri practice despre schimbarea furnizorului de energie electrică, scrise pentru cei care iau decizii în companie.
+    </p>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {all.map((entry) => (
+        <ArticleCard
+          title={entry.data.title}
+          description={entry.data.description}
+          cluster={entry.data.cluster}
+          href={articleHref('ro', entry.id)}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

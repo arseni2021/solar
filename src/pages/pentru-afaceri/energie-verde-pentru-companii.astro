@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { Icon } from 'astro-icon/components';
+
+const faqItems = [
+  {
+    question: 'Primesc fizic electroni diferiți în priză cu energia certificată?',
+    answer: 'Nu, rețeaua electrică amestecă energia din toate sursele. Certificatul de origine garantează că pentru consumul tău s-a produs o cantitate echivalentă din surse regenerabile, fără să separe fizic fluxul de energie.',
+  },
+  {
+    question: 'Ce documente primesc pentru raportarea ESG?',
+    answer: 'Certificatul de origine aferent consumului tău, utilizabil direct în rapoartele de sustenabilitate ale companiei.',
+  },
+  {
+    question: 'Certificatul de origine este inclus automat sau se solicită separat?',
+    answer: 'Depinde de contractul semnat. Scrie-ne și îți spunem exact cum funcționează pentru situația companiei tale.',
+  },
+];
+---
+<BaseLayout
+  title="Energie verde certificată pentru companii | Ecosolar"
+  description="Energie din surse regenerabile cu certificat de origine pentru companii din Republica Moldova, susține raportarea ESG."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[
+      { label: 'Acasă', href: '/' },
+      { label: 'Pentru afaceri', href: '/pentru-afaceri' },
+      { label: 'Energie verde certificată' },
+    ]} />
+    <span class="inline-flex items-center justify-center rounded-full bg-brand-100 p-3 mb-4">
+      <Icon name="lucide:leaf" class="w-6 h-6 text-brand-500" />
+    </span>
+    <h1 class="mb-4">Energie din surse regenerabile, cu certificat de origine</h1>
+    <p class="text-lg text-ink-700 mb-10">
+      Energia furnizată de Eco Solar Park provine în proporție dominantă din surse regenerabile, proprii și
+      agregate. Pentru clienții interesați de raportarea ESG, putem emite certificate de origine care atestă
+      proveniența regenerabilă a energiei consumate.
+    </p>
+
+    <div class="prose-article">
+      <h2>Cum funcționează certificatul de origine</h2>
+      <p>
+        Un certificat de origine este un document care atestă că o cantitate de energie echivalentă consumului
+        tău a fost produsă din surse regenerabile. Este instrumentul standard prin care o companie poate
+        documenta, auditabil, consumul de energie verde, ca parte a certificatelor emise pentru clienții Ecosolar
+        interesați de raportare ESG.
+      </p>
+
+      <h2>Pentru cine este relevant</h2>
+      <ul>
+        <li>Companii cu clienți sau parteneri europeni care cer dovezi de aprovizionare cu energie regenerabilă.</li>
+        <li>Companii care pregătesc sau publică deja rapoarte ESG / de sustenabilitate.</li>
+        <li>Companii care vor să folosească energia verde ca argument comercial, susținut de un document verificabil.</li>
+      </ul>
+    </div>
+
+    <div class="my-10">
+      <FAQAccordion items={faqItems} />
+    </div>
+
+    <CtaBanner compact title="Vrei energie certificată pentru compania ta?" subtitle="Scrie-ne prin formularul de contact, selectând «Furnizarea energiei electrice» și menționând interesul pentru certificate de origine." />
+  </div>
+</BaseLayout>

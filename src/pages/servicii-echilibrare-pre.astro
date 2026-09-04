@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { Icon } from 'astro-icon/components';
+import { SITE, hasValue } from '../lib/site';
+
+const activitati = [
+  { icon: 'lucide:database', title: 'Schimb de date', text: 'Schimb de date și valori măsurate cu operatorii de rețea și cu Operatorul de Sistem și Transport (OST).' },
+  { icon: 'lucide:radio', title: 'Transmiterea notificărilor', text: 'Transmiterea notificărilor orare prin platforma Pieței Angro a energiei electrice.' },
+  { icon: 'lucide:clipboard-list', title: 'Procesarea facturilor', text: 'Recepționarea, validarea și reconcilierea facturilor primite de la operatorii de distribuție.' },
+  { icon: 'lucide:calculator', title: 'Calculul dezechilibrelor', text: 'Calculul dezechilibrelor și al costurilor aferente pentru fiecare participant.' },
+  { icon: 'lucide:file-text', title: 'Facturare și raportare', text: 'Emiterea de facturi și note de informare către fiecare membru, pe baza metodologiei interne de redistribuire.' },
+];
+---
+<BaseLayout
+  title="Servicii de echilibrare (PRE) pentru producători din surse regenerabile | Ecosolar"
+  description="Eco Solar Park administrează o Parte Responsabilă cu Echilibrarea (PRE), platformă de agregare pentru producători din surse regenerabile din Moldova."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Servicii de echilibrare (PRE)' }]} />
+    <span class="inline-flex items-center justify-center rounded-full bg-brand-100 p-3 mb-4">
+      <Icon name="lucide:scale" class="w-6 h-6 text-brand-500" />
+    </span>
+    <h1 class="mb-4">Servicii de echilibrare (PRE), platformă de agregare pentru producători</h1>
+    <p class="text-lg text-ink-700 mb-10">
+      Pe lângă furnizarea de energie electrică către companii, Eco Solar Park administrează o structură de
+      agregare dedicată participanților din piața de energie electrică, în special producătorilor din surse
+      regenerabile, sub forma unei Părți Responsabile cu Echilibrarea (PRE).
+    </p>
+
+    <div class="prose-article">
+      <h2>Ce este o Parte Responsabilă cu Echilibrarea (PRE)</h2>
+      <p>
+        Orice producător de energie electrică transmite operatorului de sistem o prognoză a producției sale.
+        Diferența dintre această prognoză și producția reală generează un dezechilibru, decontat financiar de
+        operatorul de sistem. O Parte Responsabilă cu Echilibrarea agregă mai mulți participanți într-un singur
+        portofoliu, astfel încât abaterile individuale se pot compensa parțial reciproc, reducând costul total de
+        dezechilibru suportat de fiecare membru.
+        {hasValue(SITE.preParticipantsCount) && <> Grupul administrat de Ecosolar are în prezent {SITE.preParticipantsCount} producători activi.</>}
+      </p>
+
+      <h2>Pentru cine este acest serviciu</h2>
+      <p>
+        Serviciul se adresează în principal producătorilor din surse regenerabile, solar și eolian, interesați
+        să optimizeze diferențele dintre prognozele de producție transmise și valorile reale, fără să gestioneze
+        singuri complexitatea administrativă și tehnică a acestui proces.
+      </p>
+
+      <h2>Beneficii pentru membri</h2>
+      <p>
+        Prin integrarea într-o PRE administrată transparent și profesionist, membrii beneficiază de o diminuare a
+        costurilor asociate dezechilibrelor negative și de o maximizare a veniturilor pentru surplusul de energie
+        produsă, printr-un mecanism echitabil, clar și orientat către performanța colectivă a grupului.
+      </p>
+
+      <h2>Ce facem, concret, în fiecare lună</h2>
+    </div>
+
+    <div class="not-prose grid sm:grid-cols-2 gap-5 my-8">
+      {activitati.map((a) => (
+        <div class="bg-white rounded-2xl border border-ink-100 p-5 flex gap-4">
+          <span class="inline-flex items-center justify-center rounded-full bg-brand-100 p-2.5 h-fit shrink-0">
+            <Icon name={a.icon} class="w-5 h-5 text-brand-500" />
+          </span>
+          <div>
+            <p class="font-heading font-semibold text-ink-900 mb-1">{a.title}</p>
+            <p class="text-sm text-ink-700">{a.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="prose-article">
+      <h2>Cum diferă acest serviciu de furnizarea de energie electrică</h2>
+      <p>
+        Furnizarea de energie electrică (vezi <a href="/pentru-afaceri">Pentru afaceri</a>) se adresează
+        companiilor care <strong>consumă</strong> energie electrică. Serviciul de echilibrare (PRE) se adresează
+        celor care <strong>produc</strong> energie electrică din surse regenerabile și vor să reducă riscul
+        financiar asociat abaterilor de la prognoză. Cele două servicii pot fi folosite independent unul de
+        celălalt.
+      </p>
+    </div>
+
+    <div class="mt-12">
+      <CtaBanner
+        compact
+        title="Ești producător din surse regenerabile?"
+        subtitle="Scrie-ne prin formularul de contact, menționând la comentarii că ești interesat de serviciul de echilibrare (PRE)."
+        href="/contacte"
+        buttonLabel="Contactează-ne"
+      />
+    </div>
+  </div>
+</BaseLayout>

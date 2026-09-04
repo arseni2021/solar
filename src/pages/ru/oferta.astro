@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RequestForm from '../../components/RequestForm.astro';
+import { Icon } from 'astro-icon/components';
+import { SITE, hasValue } from '../../lib/site';
+
+const documente = [
+  { label: 'Модель договора поставки', href: SITE.contractTemplateUrl },
+  { label: 'Форма заявки на смену поставщика', href: SITE.switchRequestFormUrl },
+  { label: 'Модель доверенности', href: SITE.powerOfAttorneyTemplateUrl },
+].filter((d) => hasValue(d.href));
+---
+<BaseLayout
+  lang="ru"
+  title="Запросить предложение по электроэнергии для бизнеса | Ecosolar"
+  description="Заполни форму и получи ценовое предложение по электроэнергии для твоей компании в течение 24 часов."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/ru' }, { label: 'Запросить предложение' }]} />
+    <h1 class="mb-4">Запросить персональное предложение</h1>
+    <p class="text-lg text-ink-700 mb-6">
+      Заполни форму ниже с данными твоей компании. Получишь персональное ценовое предложение в течение
+      максимум 24 часов, без обязательств.
+    </p>
+    <div class="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm text-ink-700">
+      <span class="flex items-center gap-1.5"><Icon name="lucide:badge-check" class="w-4 h-4 text-brand-500" /> Поставщик, лицензированный ANRE</span>
+      <span class="flex items-center gap-1.5"><Icon name="lucide:zap" class="w-4 h-4 text-brand-500" /> Без перебоев при переходе</span>
+      <span class="flex items-center gap-1.5"><Icon name="lucide:clock" class="w-4 h-4 text-brand-500" /> Ответ в течение 24 часов</span>
+    </div>
+    <RequestForm lang="ru" />
+
+    {documente.length > 0 && (
+      <div class="mt-10 bg-ink-50 rounded-2xl p-6">
+        <h2 class="text-base font-heading font-semibold mb-3">Полезные документы</h2>
+        <ul class="space-y-2 text-sm">
+          {documente.map((d) => (
+            <li>
+              <a href={d.href} class="inline-flex items-center gap-2 text-brand-600 hover:underline">
+                <Icon name="lucide:file-down" class="w-4 h-4" /> {d.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</BaseLayout>

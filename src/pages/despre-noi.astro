@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { Icon } from 'astro-icon/components';
+---
+<BaseLayout
+  title="Despre noi, furnizor licențiat ANRE de energie regenerabilă"
+  description="Eco Solar Park SRL: furnizor de energie electrică din surse regenerabile și administrator al unei Părți Responsabile cu Echilibrarea (PRE) în Republica Moldova."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <Breadcrumbs items={[{ label: 'Acasă', href: '/' }, { label: 'Despre noi' }]} />
+    <h1 class="mb-6">Despre Eco Solar Park</h1>
+
+    <div class="prose-article">
+      <p>
+        Eco Solar Park SRL este o companie din Republica Moldova specializată în energia electrică regenerabilă,
+        cu un accent strategic pe tranziția energetică sustenabilă. Activitatea companiei se desfășoară pe două
+        direcții complementare: furnizarea de energie electrică către companii și administrarea unei structuri de
+        agregare pentru producătorii din surse regenerabile.
+      </p>
+
+      <h2>Furnizarea energiei electrice</h2>
+      <p>
+        Eco Solar Park valorifică surse regenerabile, în special energia solară și eoliană, pentru a oferi
+        companiilor din Moldova o alternativă verde, competitivă și fiabilă la furnizorul reglementat. Modelul
+        nostru de aprovizionare se bazează preponderent pe producție proprie și agregată, completată cu achiziții
+        de pe piața angro, iar oferta
+        se adresează în primul rând:
+      </p>
+      <ul>
+        <li><strong>IMM-urilor</strong> interesate de surse verzi de energie.</li>
+        <li><strong>Consumatorilor industriali</strong> cu profil de consum predictibil și constant.</li>
+      </ul>
+      <p>
+        Pentru clienții interesați de raportare ESG, putem emite certificate de origine care atestă proveniența
+        regenerabilă a energiei furnizate. Detalii despre tarife pe pagina <a href="/pentru-afaceri">Pentru afaceri</a>.
+      </p>
+
+      <h2>Servicii de echilibrare (PRE)</h2>
+      <p>
+        Eco Solar Park administrează o Parte Responsabilă cu Echilibrarea (PRE), o structură de agregare dedicată
+        producătorilor din surse regenerabile, care își propune să optimizeze diferențele dintre prognozele de
+        producție transmise și valorile reale, reducând costurile de dezechilibru și crescând eficiența
+        operațională a membrilor. Acest serviciu este distinct de furnizarea de energie electrică și se adresează
+        producătorilor, nu consumatorilor finali. Detalii pe pagina <a href="/servicii-echilibrare-pre">Servicii de echilibrare (PRE)</a>.
+      </p>
+
+      <h2>Impactul nostru</h2>
+      <p>
+        Prin această structură operațională duală, furnizare și agregare, Eco Solar Park contribuie la creșterea
+        flexibilității și rezilienței sistemului energetic național, consolidând rolul producătorilor regenerabili
+        în arhitectura energetică a viitorului.
+      </p>
+
+      <h2>Cum diferă Ecosolar de alți furnizori de pe piața liberă</h2>
+      <p>
+        Pe piața liberalizată din Moldova, cel mai apropiat structural de oferta noastră este Navitas Energy,
+        parte a Grupului Premier Energy. Câteva diferențe concrete, verificabile:
+      </p>
+      <ul>
+        <li>
+          <strong>Companie independentă.</strong> Eco Solar Park nu face parte dintr-un grup care deține și
+          rețeaua de distribuție sau poziția de furnizor reglementat de energie electrică din Moldova.
+        </li>
+        <li>
+          <strong>Origine regenerabilă în centrul ofertei.</strong> Energia furnizată provine preponderent din
+          surse regenerabile proprii și agregate, cu certificate de origine disponibile pentru raportare ESG,
+          nu doar ca opțiune adăugată la o ofertă generalistă.
+        </li>
+        <li>
+          <strong>Soluții personalizate pentru industrie.</strong> Integrarea sistemelor de autoconsum și a
+          stocării locale se discută direct cu fiecare client industrial, nu printr-un tarif standard unic.
+        </li>
+      </ul>
+
+      <h2>Transparență și licențiere</h2>
+      <p>
+        Eco Solar Park SRL este furnizor licențiat de energie electrică. Detaliile licenței și reperele de
+        transparență privind activitatea companiei sunt publicate pe pagina
+        {' '}<a href="/despre-noi/licenta-si-transparenta">Licența ANRE și transparența Eco Solar Park</a>.
+      </p>
+    </div>
+
+    <div class="mt-12">
+      <CtaBanner />
+    </div>
+  </div>
+</BaseLayout>
