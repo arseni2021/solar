@@ -114,12 +114,4 @@ function isActive(href: string) {
   {t.requestOffer}
 </a>
 
-<script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    const isHidden = menu?.classList.contains('hidden');
-    menu?.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(!!isHidden));
-  });
-</script>
+<script src="../scripts/mobile-menu.js"></script>
